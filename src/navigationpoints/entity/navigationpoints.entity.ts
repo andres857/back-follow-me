@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class Navigationpoints {
+@Entity('navigationpoints')
+export class Navigationpoint {
   @PrimaryGeneratedColumn()
   id: number;
 

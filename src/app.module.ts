@@ -23,7 +23,7 @@ import { HistoryModule } from './history/history.module';
       username: 'aguerrero',
       password: 'SxJ-Nr1prBU(Jc(v',
       database: 'follow-me',
-      entities: [],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     ClientModule,
