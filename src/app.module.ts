@@ -18,10 +18,10 @@ import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/det
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '192.168.0.102',
-      port: 1806,
-      username: 'aguerrero',
-      password: 'SxJ-Nr1prBU(Jc(v',
+      host: '127.0.0.1',
+      port: 3306,
+      username: 'root',
+      password: '',
       database: 'follow-me',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
