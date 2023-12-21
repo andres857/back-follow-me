@@ -22,7 +22,7 @@ import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/det
       port: 3306,
       username: 'root',
       password: '',
-      database: 'follow-me',
+      database: 'follow_me',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
