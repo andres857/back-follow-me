@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Ubication } from 'src/ubications/entity/ubication.entity';
 
 @Entity('Instructions')
 export class Instructions {
@@ -17,5 +24,7 @@ export class Instructions {
   @Column()
   description: string;
 
-  //   idUbication
+  @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
+  @JoinColumn({ name: 'id_ubication' })
+  ubication: Ubication;
 }

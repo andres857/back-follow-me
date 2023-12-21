@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
+import { Client } from 'src/client/entity/client.entity';
+import { Ubication } from 'src/ubications/entity/ubication.entity';
 
 @Entity('locations')
 export class Location {
@@ -10,5 +19,11 @@ export class Location {
 
   @Column({ nullable: true })
   address: string;
-  //   id client
+
+  @ManyToOne(() => Client, (client) => client.locations, { cascade: true })
+  @JoinColumn({ name: 'id_client' })
+  client: Client;
+
+  @OneToMany(() => Ubication, (ubication) => ubication.location)
+  ubications: Ubication;
 }

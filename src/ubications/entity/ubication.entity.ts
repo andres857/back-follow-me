@@ -1,4 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
+import { Location } from 'src/locations/entity/location.entity';
+import { TypeUbication } from 'src/type-ubication/entity/typeUbication.entity';
+import { Floor } from 'src/floor/entity/floor.entity';
+import { Instructions } from 'src/instructions/entity/instructions.entity';
+import { DetailPathwaysUbications } from 'src/detail_pathways_ubications/entity/detail_pathways_ubications.entity';
 
 @Entity('ubications')
 export class Ubication {
@@ -8,9 +20,26 @@ export class Ubication {
   @Column({ unique: true })
   name: string;
 
-  //  id Location
+  @ManyToOne(() => Location, (location) => location.ubications, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'id_location' })
+  location: Location;
 
-  // id piso
+  @ManyToOne(() => TypeUbication, (typeUbication) => typeUbication.ubication)
+  @JoinColumn({ name: 'id_type_ubication' })
+  type: TypeUbication;
 
-  // id typeubication
+  @ManyToOne(() => Floor, (floor) => floor.ubication)
+  @JoinColumn({ name: 'id_floor' })
+  floor: Floor;
+
+  @OneToMany(() => Instructions, (instructions) => instructions.ubication)
+  instructions: Instructions[];
+
+  @OneToMany(
+    () => DetailPathwaysUbications,
+    (detail_pathways) => detail_pathways.ubication,
+  )
+  detail_pathways: DetailPathwaysUbications[];
 }

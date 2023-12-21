@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Client } from 'src/client/entity/client.entity';
+import { Rol } from "src/roles/entity/roles.entity";
 
 @Entity('users')
 export class User {
@@ -16,4 +24,12 @@ export class User {
 
   @Column({ type: 'varchar', length: 60 })
   password: string;
+
+  @ManyToOne(() => Client, (client) => client.users, { cascade: true })
+  @JoinColumn({ name: 'id_client' })
+  client: Client;
+
+  @ManyToOne(() => Rol, (roles) => roles.user, { cascade: true })
+  @JoinColumn({ name: 'id_rol' })
+  rol: Rol;
 }

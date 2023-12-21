@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { PathWay } from 'src/pathways/entity/pathways.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity()
 export class History {
@@ -18,8 +25,9 @@ export class History {
   @Column({ nullable: true })
   time: number;
 
-  @Column()
-  description: string;
-
-  //   idUbication
+  @ManyToOne(() => PathWay, (pathways) => pathways.detail_pathways, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'id_pathways' })
+  pathways: PathWay;
 }

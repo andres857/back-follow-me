@@ -10,9 +10,9 @@ import { UbicationsModule } from './ubications/ubications.module';
 import { FloorModule } from './floor/floor.module';
 import { TypeUbicationModule } from './type-ubication/type-ubication.module';
 import { InstructionsModule } from './instructions/instructions.module';
-import { NavigationpointsModule } from './navigationpoints/navigationpoints.module';
-import { DetailNavigationPointsubicationsModule } from './detail_navigation_pointsubications/detail_navigation_pointsubications.module';
 import { HistoryModule } from './history/history.module';
+import { PathwaysModule } from './pathways/pathways.module';
+import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/detail_pathways_ubications.module';
 
 @Module({
   imports: [
@@ -34,9 +34,9 @@ import { HistoryModule } from './history/history.module';
     FloorModule,
     TypeUbicationModule,
     InstructionsModule,
-    NavigationpointsModule,
-    DetailNavigationPointsubicationsModule,
     HistoryModule,
+    PathwaysModule,
+    DetailPathwaysUbicationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
