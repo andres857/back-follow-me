@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientModule } from './client/client.module';
-import { UserModule } from './user/user.module';
+import { UserModule } from './users/user.module';
 import { RolesModule } from './roles/roles.module';
 import { LocationsModule } from './locations/locations.module';
 import { UbicationsModule } from './ubications/ubications.module';

@@ -9,6 +9,9 @@ export class CreateLocationDto {
   @IsString()
   @IsNotEmpty()
   readonly address: string;
+
+  @IsNotEmpty()
+  id_client: number;
 }
 
 export class UpdateLocationDto extends PartialType(CreateLocationDto) {}

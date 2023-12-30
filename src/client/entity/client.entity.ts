@@ -6,7 +6,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { Location } from 'src/locations/entity/location.entity';
-import { User } from 'src/user/entity/user.entity';
+import { User } from 'src/users/entity/user.entity';
 
 @Entity('clients')
 export class Client {
