@@ -18,6 +18,21 @@ export class TypeUbicationService {
   findOne(id: number): Promise<TypeUbication | null> {
     return this.typeUbicationRepository.findOneBy({ id });
   }
+
+  async findId(typeName: string) {
+    const typeUbication = await this.typeUbicationRepository.findOne({
+      where: {
+        name: typeName,
+      },
+    });
+    if (typeUbication !== null) {
+      console.log('stu', typeUbication);
+      console.log(typeUbication.id);
+      return typeUbication.id;
+    }
+    return typeUbication;
+  }
+
   async create(
     createTypeUbicationDto: CreateTypeUbicationDto,
   ): Promise<TypeUbication> {

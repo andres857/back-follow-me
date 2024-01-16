@@ -5,6 +5,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 import { UbicationsService } from './ubications.service';
 import { CreateUbicationDto } from './dto/ubication.dto';
@@ -13,17 +14,18 @@ import { CreateUbicationDto } from './dto/ubication.dto';
 export class UbicationsController {
   constructor(private ubicationService: UbicationsService) {}
 
+  // @Get()
+  // async getAll() {
+  //   const ubications = await this.ubicationService.findAll();
+  //   console.log(ubications);
+  //   return ubications;
+  // }
+
   @Get()
-  async getAll() {
-    const ubications = await this.ubicationService.findAll();
-    console.log(ubications);
-
-    return ubications;
-  }
-
-  @Get('/:id')
-  async getbyId(@Param('id', ParseIntPipe) id: number) {
-    const ubication = await this.ubicationService.findOne(id);
+  async getbyId(@Query('type') type: string) {
+    console.log('here');
+    
+    const ubication = await this.ubicationService.getUbicationsByType(type);
     console.log(ubication);
 
     return ubication;

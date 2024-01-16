@@ -8,5 +8,6 @@ import { TypeUbicationController } from './type-ubication.controller';
   imports: [TypeOrmModule.forFeature([TypeUbication])],
   providers: [TypeUbicationService],
   controllers: [TypeUbicationController],
+  exports: [TypeUbicationService],
 })
 export class TypeUbicationModule {}
