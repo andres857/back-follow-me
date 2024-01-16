@@ -26,8 +26,6 @@ export class TypeUbicationService {
       },
     });
     if (typeUbication !== null) {
-      console.log('stu', typeUbication);
-      console.log(typeUbication.id);
       return typeUbication.id;
     }
     return typeUbication;

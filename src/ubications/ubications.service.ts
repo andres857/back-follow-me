@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { Ubication } from './entity/ubication.entity';
 import { CreateUbicationDto } from './dto/ubication.dto';
 import { TypeUbicationService } from '../type-ubication/type-ubication.service';
-import { type } from 'os';
 
 @Injectable()
 export class UbicationsService {
@@ -28,7 +27,6 @@ export class UbicationsService {
   async getUbicationsByType(typeUbication: string) {
     const idTypeUbication =
       await this.typeUbicationService.findId(typeUbication);
-    console.log('koo', idTypeUbication, typeof idTypeUbication);
     if (typeof idTypeUbication !== 'number') {
       return [];
     }
@@ -37,7 +35,7 @@ export class UbicationsService {
         type: { id: idTypeUbication },
       },
     });
-    console.log(ubications);
+    return ubications;
   }
 
   async create(createUbicationDto: CreateUbicationDto): Promise<Ubication> {
