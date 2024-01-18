@@ -13,6 +13,12 @@ import { CreateFloorDto } from './dto/floor.dto';
 export class FloorController {
   constructor(private floorService: FloorService) {}
 
+  @Get()
+  async getAll() {
+    const floors = await this.floorService.findAll();
+    return floors;
+  }
+
   @Get('/:id')
   async getFloorByIdUbication(@Param('id', ParseIntPipe) id: number) {
     const floor = await this.floorService.findOne(id);

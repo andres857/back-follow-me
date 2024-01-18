@@ -9,9 +9,15 @@ import {
 import { TypeUbicationService } from './type-ubication.service';
 import { CreateTypeUbicationDto } from './dto/typeUbication.dto';
 
-@Controller('type-ubication')
+@Controller('type-ubications')
 export class TypeUbicationController {
   constructor(private typeUbicationService: TypeUbicationService) {}
+
+  @Get()
+  async getAll() {
+    const typeUbications = await this.typeUbicationService.findAll();
+    return typeUbications;
+  }
 
   @Get('/:id')
   async getTypeUbicationById(@Param('id', ParseIntPipe) id: number) {
