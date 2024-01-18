@@ -27,11 +27,10 @@ export class LocationsService {
     );
     // console.log(clientFound);
     console.log(createLocationDto);
-    
 
     const location = this.locationRepository.create(createLocationDto);
     console.log(location);
-    
+
     const rta = await this.locationRepository.save(location);
     console.log(rta);
     return rta;

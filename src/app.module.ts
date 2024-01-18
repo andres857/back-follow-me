@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,9 +14,13 @@ import { InstructionsModule } from './instructions/instructions.module';
 import { HistoryModule } from './history/history.module';
 import { PathwaysModule } from './pathways/pathways.module';
 import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/detail_pathways_ubications.module';
+import { DoSpacesModule } from './do-spaces/do-spaces.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '192.168.0.102',
@@ -37,6 +42,7 @@ import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/det
     HistoryModule,
     PathwaysModule,
     DetailPathwaysUbicationsModule,
+    DoSpacesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

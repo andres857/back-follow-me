@@ -6,6 +6,12 @@ import { CreateLocationDto } from './dto/location.dto';
 export class LocationsController {
   constructor(private locationService: LocationsService) {}
 
+  @Get()
+  async getAll() {
+    const locations = await this.locationService.findAll();
+    return locations;
+  }
+
   @Get('/:id')
   getClientById(@Param('id') id: string) {
     return `id client ${id}`;

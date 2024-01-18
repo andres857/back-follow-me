@@ -23,6 +23,7 @@ export class UbicationsService {
       relations: ['type'],
     });
   }
+
   // falta por definir la interfaz de datos que retorna la funcion
   async getUbicationsByType(typeUbication: string) {
     const idTypeUbication =
