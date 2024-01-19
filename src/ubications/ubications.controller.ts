@@ -34,14 +34,20 @@ export class UbicationsController {
   @Post('/new/upload')
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: any, @Req() req) {
-    console.log(file);
-    
+    const {
+      nameUbication,
+      typeUbication,
+      location,
+      floor,
+      descriptionUbication,
+    } = req.body;
+
     // const buffer = file.buffer;
     // const filename = file.originalname;
 
     const imageUrl = await this.spacesService.uploadFile(file);
     console.log(imageUrl);
-    
+
     return { imageUrl };
   }
 }
