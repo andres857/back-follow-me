@@ -37,7 +37,7 @@ export class TypeUbicationService {
     const floor = this.typeUbicationRepository.create(createTypeUbicationDto);
     return this.typeUbicationRepository.save(floor);
   }
-  
+
   async remove(id: number): Promise<void> {
     await this.typeUbicationRepository.delete(id);
   }

@@ -10,44 +10,43 @@ import {
 } from '@nestjs/common';
 import { UbicationsService } from './ubications.service';
 import { CreateUbicationDto } from './dto/ubication.dto';
-import { SpacesService } from '../do-spaces/do-spaces.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('ubications')
 export class UbicationsController {
-  constructor(
-    private ubicationService: UbicationsService,
-    private spacesService: SpacesService,
-  ) {}
+  constructor(private ubicationService: UbicationsService) {}
 
   @Get()
   async getbyId(@Query('type') type: string) {
+    console.log(type);
     const ubication = await this.ubicationService.getUbicationsByType(type);
     return ubication;
   }
 
   @Post()
-  async create(@Body() createLocationDto: CreateUbicationDto) {
+  async create(@Body() createLocationDto: any) {
     return this.ubicationService.create(createLocationDto);
   }
 
   @Post('/new/upload')
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: any, @Req() req) {
-    const {
-      nameUbication,
-      typeUbication,
-      location,
-      floor,
-      descriptionUbication,
-    } = req.body;
+    const myreq = req.body;
+    const payload = {
+      name: myreq.nameUbication,
+      idTypeUbication: parseInt(myreq.typeUbication, 10),
+      Location: parseInt(myreq.location, 10),
+      idFloor: parseInt(myreq.floor, 10),
+      imageUrl: 'http',
+    };
+    // const payload = { nameUbication, typeUbication, location, floor } = myreq;
+    console.log(myreq);
+    return this.ubicationService.create(payload);
 
-    // const buffer = file.buffer;
-    // const filename = file.originalname;
-
-    const imageUrl = await this.spacesService.uploadFile(file);
-    console.log(imageUrl);
-
-    return { imageUrl };
+    // const rta = await this.ubicationService.createUbication(
+    //   ubicationData,
+    //   file,
+    // );
+    // return { rta };
   }
 }
