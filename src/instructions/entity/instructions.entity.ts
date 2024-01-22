@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Ubication } from 'src/ubications/entity/ubication.entity';
 
-@Entity('Instructions')
+@Entity('instructions')
 export class Instructions {
   @PrimaryGeneratedColumn()
   id: number;
