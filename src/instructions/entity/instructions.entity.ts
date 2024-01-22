@@ -24,6 +24,9 @@ export class Instructions {
   @Column()
   description: string;
 
+  @Column()
+  Direction: string;
+
   @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
   @JoinColumn({ name: 'id_ubication' })
   ubication: Ubication;

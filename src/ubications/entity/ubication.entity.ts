@@ -20,6 +20,12 @@ export class Ubication {
   @Column({ unique: true })
   name: string;
 
+  @Column({
+    type: 'varchar',
+    length: 255,
+  })
+  imageUrl: string;
+
   @ManyToOne(() => Location, (location) => location.ubications, {
     cascade: true,
   })

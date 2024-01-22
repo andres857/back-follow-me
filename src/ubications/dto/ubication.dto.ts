@@ -1,26 +1,29 @@
-import { IsString, IsNotEmpty, ValidateNested } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateLocationDto } from 'src/locations/dto/location.dto';
-import { CreateTypeUbicationDto } from 'src/type-ubication/dto/typeUbication.dto';
-import { CreateFloorDto } from 'src/floor/dto/floor.dto';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateUbicationDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
 
-  @ValidateNested()
-  @Type(() => CreateLocationDto)
-  readonly location: CreateLocationDto;
+  @IsNumber()
+  @IsNotEmpty()
+  @Type(() => Number)
+  idTypeUbication: number;
 
-  @ValidateNested()
-  @Type(() => CreateTypeUbicationDto)
-  readonly type: CreateTypeUbicationDto;
+  @IsNumber()
+  @IsNotEmpty()
+  @Type(() => Number)
+  location: number;
 
-  @ValidateNested()
-  @Type(() => CreateFloorDto)
-  readonly floor: CreateFloorDto;
+  @IsNumber()
+  @IsNotEmpty()
+  @Type(() => Number)
+  idFloor: number;
+
+  @IsString()
+  imageUrl: string;
 }
 
 export class UpdateUbicationDto extends PartialType(CreateUbicationDto) {}
