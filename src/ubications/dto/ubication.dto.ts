@@ -10,17 +10,17 @@ export class CreateUbicationDto {
   @IsNumber()
   @IsNotEmpty()
   @Type(() => Number)
-  idTypeUbication: number;
+  id_type_ubication: number;
 
   @IsNumber()
   @IsNotEmpty()
   @Type(() => Number)
-  location: number;
+  id_location: number;
 
   @IsNumber()
   @IsNotEmpty()
   @Type(() => Number)
-  idFloor: number;
+  id_floor: number;
 
   @IsString()
   imageUrl: string;
