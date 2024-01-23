@@ -29,13 +29,13 @@ export class UbicationsService {
   // falta por definir la interfaz de datos que retorna la funcion
   async getUbicationsByType(typeUbication: string): Promise<any[]> {
     const query = `
-    SELECT 
-    u.id AS id_ubication,
-    u.name AS ubication_name,
-    t.name AS type_name
-    FROM ubications u
-    INNER JOIN type_ubication t ON u.id_type_ubication = t.id
-    WHERE t.name = ?
+      SELECT 
+      u.id AS id_ubication,
+      u.name AS ubication_name,
+      t.name AS type_name
+      FROM ubications u
+      INNER JOIN type_ubication t ON u.id_type_ubication = t.id
+      WHERE t.name = ?
     `;
     const ubications = await this.ubicationRepository.query(query, [
       typeUbication,
@@ -45,10 +45,6 @@ export class UbicationsService {
   }
 
   async create(createUbicationDto: CreateUbicationDto): Promise<Ubication> {
-    console.log('------');
-    console.log(createUbicationDto);
-    console.log('------');
-
     const ubication = await this.ubicationRepository.create(createUbicationDto);
     console.log(ubication);
     const newUbication = await this.ubicationRepository.save(ubication);
@@ -56,26 +52,18 @@ export class UbicationsService {
   }
 
   async createUbication(data: any, file: any) {
-    const {
-      nameUbication,
-      typeUbication,
-      location,
-      floor,
-      // descriptionUbication,
-    } = data;
     const imageUrlDo = await this.spacesService.uploadFile(file);
+    console.log(imageUrlDo);
 
-    const payload = {
-      name: nameUbication,
-      idTypeUbication: parseInt(typeUbication, 10),
-      id_location: parseInt(location, 10),
-      idFloor: parseInt(floor, 10),
-      imageUrl: imageUrlDo.Location,
-    };
-
-    const newUbication = await this.create(payload);
-    console.log(newUbication);
-    return newUbication;
+    // const payload = {
+    //   name: data.nameUbication,
+    //   id_type_ubication: data.typeUbication,
+    //   id_location: data.id_location,
+    //   // url: data.imageUrlDo
+    // };
+    // const newUbication = await this.create(payload);
+    // console.log(newUbication);
+    // return newUbication;
   }
   async remove(id: number): Promise<void> {
     await this.ubicationRepository.delete(id);
