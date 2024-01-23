@@ -31,7 +31,7 @@ import { DoSpacesModule } from './do-spaces/do-spaces.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname, 'database/migrations/**/*{.ts,.js}'],
       logging: true,
-      // synchronize: false,
+      synchronize: false,
       // migrationsTableName: 'typeorm_migrations',
       // migrationsRun: false,
     }),
