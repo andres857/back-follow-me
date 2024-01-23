@@ -31,17 +31,13 @@ export class UbicationsController {
   @Post('/new/upload')
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: any, @Req() req) {
-    const myreq = req.body;
     const payload = {
-      name: myreq.nameUbication,
-      idTypeUbication: parseInt(myreq.typeUbication, 10),
-      Location: parseInt(myreq.location, 10),
-      idFloor: parseInt(myreq.floor, 10),
-      imageUrl: 'http',
+      ...req.body,
     };
-    // const payload = { nameUbication, typeUbication, location, floor } = myreq;
-    console.log(myreq);
-    return this.ubicationService.create(payload);
+    console.log('-----C------');
+    console.log(payload);
+    console.log('---C--------');
+    return this.ubicationService.createUbication(payload, file);
 
     // const rta = await this.ubicationService.createUbication(
     //   ubicationData,

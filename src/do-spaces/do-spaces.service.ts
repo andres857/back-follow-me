@@ -1,6 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 
+interface FileUploadResponse {
+  ETag: string;
+  Location: string;
+  key: string;
+  Key: string;
+  Bucket: string;
+}
+
 @Injectable()
 export class SpacesService {
   private s3: AWS.S3;
@@ -16,7 +24,7 @@ export class SpacesService {
     });
   }
 
-  async uploadFile(file): Promise<any> {
+  async uploadFile(file) {
     const params = {
       Bucket: process.env.SPACES_BUCKET,
       Key: file.originalname,
@@ -24,7 +32,7 @@ export class SpacesService {
       ContentType: file.mimetype,
       ACL: 'public-read', // o ajusta según tus necesidades de privacidad
     };
-
-    return this.s3.upload(params).promise();
+    const rtado = await this.s3.upload(params).promise();
+    return rtado;
   }
 }
