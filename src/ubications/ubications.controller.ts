@@ -9,7 +9,6 @@ import {
   Req,
 } from '@nestjs/common';
 import { UbicationsService } from './ubications.service';
-import { CreateUbicationDto } from './dto/ubication.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('ubications')
@@ -18,7 +17,6 @@ export class UbicationsController {
 
   @Get()
   async getbyId(@Query('type') type: string) {
-    console.log(type);
     const ubication = await this.ubicationService.getUbicationsByType(type);
     return ubication;
   }
@@ -34,15 +32,12 @@ export class UbicationsController {
     const payload = {
       ...req.body,
     };
-    console.log('-----C------');
-    console.log(payload);
-    console.log('---C--------');
-    return this.ubicationService.createUbication(payload, file);
 
-    // const rta = await this.ubicationService.createUbication(
-    //   ubicationData,
-    //   file,
-    // );
-    // return { rta };
+    const newUbication = await this.ubicationService.createUbication(payload, file);
+    console.log('---------------');
+    console.log(newUbication);
+    console.log('---------------');
+
+    return newUbication;
   }
 }

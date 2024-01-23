@@ -40,30 +40,50 @@ export class UbicationsService {
     const ubications = await this.ubicationRepository.query(query, [
       typeUbication,
     ]);
-    console.log(ubications);
     return ubications;
   }
 
-  async create(createUbicationDto: CreateUbicationDto): Promise<Ubication> {
-    const ubication = await this.ubicationRepository.create(createUbicationDto);
-    console.log(ubication);
-    const newUbication = await this.ubicationRepository.save(ubication);
-    return newUbication;
+  async create(createUbicationDto: CreateUbicationDto) {
+    try {
+      const newUbication = await this.ubicationRepository.query(
+        `INSERT INTO ubications (name, id_type_ubication, id_location, id_floor,imageUrl) VALUES (?, ?, ?, ?, ?)`,
+        [
+          createUbicationDto.name,
+          createUbicationDto.id_type_ubication,
+          createUbicationDto.id_location,
+          createUbicationDto.id_floor,
+          // createUbicationDto.imageUrl,
+        ],
+      );
+      return newUbication;
+    } catch (error) {
+      const customError = new Error({
+        message: 'Error al crear la ubicación en la base de datos.',
+        cause: 500,
+      });
+
+      // Aquí puedes agregar propiedades adicionales al error si es necesario
+      customError.cause = error;
+
+      // Lanzar el error personalizado
+      throw customError;
+    }
   }
 
   async createUbication(data: any, file: any) {
     const imageUrlDo = await this.spacesService.uploadFile(file);
-    console.log(imageUrlDo);
+    console.log(data);
 
-    // const payload = {
-    //   name: data.nameUbication,
-    //   id_type_ubication: data.typeUbication,
-    //   id_location: data.id_location,
-    //   // url: data.imageUrlDo
-    // };
-    // const newUbication = await this.create(payload);
-    // console.log(newUbication);
-    // return newUbication;
+    const payload = {
+      name: data.nameUbication,
+      id_type_ubication: parseInt(data.typeUbication),
+      id_location: parseInt(data.location),
+      id_floor: parseInt(data.floor),
+      imageUrl: imageUrlDo.Location,
+    };
+    const newUbication = await this.create(payload);
+    console.log(newUbication);
+    return newUbication;
   }
   async remove(id: number): Promise<void> {
     await this.ubicationRepository.delete(id);
