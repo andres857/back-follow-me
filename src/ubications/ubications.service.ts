@@ -47,38 +47,38 @@ export class UbicationsService {
     return ubications;
   }
 
-  async create(createUbicationDto: CreateUbicationDto) {
+  async create(data: CreateUbicationDto) {
     try {
-      const newUbication = await this.ubicationRepository.query(
-        `INSERT INTO ubications (name, id_type_ubication, id_location, id_floor,imageUrl) VALUES (?, ?, ?, ?, ?)`,
-        [
-          createUbicationDto.name,
-          createUbicationDto.id_type_ubication,
-          createUbicationDto.id_location,
-          createUbicationDto.id_floor,
-          createUbicationDto.imageUrl,
-        ],
-      );
-      return newUbication;
+      const ubication = this.ubicationRepository.create(data as any);
+      return await this.ubicationRepository.save(ubication);
     } catch (error) {
-      throw new UnprocessableEntityException('Error creando la ubicacion');
+      throw new Error(`Error al crear la ubicación: ${error.message}`);
     }
   }
 
   async createUbication(data: any, file: any) {
     const imageUrlDo = await this.spacesService.uploadFile(file);
+    console.log('-----dataService-----');
     console.log(data);
+    console.log('-----dataService-----');
 
     const payload = {
       name: data.nameUbication,
-      id_type_ubication: parseInt(data.typeUbication),
-      id_location: parseInt(data.location),
-      id_floor: parseInt(data.floor),
       imageUrl: imageUrlDo.Location,
+      location: parseInt(data.location),
+      type: parseInt(data.typeUbication),
+      floor: parseInt(data.floor),
     };
-    const newUbication = await this.create(payload);
-    console.log(newUbication);
-    return newUbication;
+
+    try {
+      const newUbication = await this.create(payload);
+      console.log(newUbication);
+      return newUbication;
+    } catch (error) {
+      throw new Error(
+        `Error al crear la ubicación con datos adicionales: ${error.message}`,
+      );
+    }
   }
   async remove(id: number): Promise<void> {
     await this.ubicationRepository.delete(id);
