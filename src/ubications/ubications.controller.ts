@@ -44,17 +44,18 @@ export class UbicationsController {
         payload,
         file,
       );
+      console.log(newUbication);
+
       response.status(HttpStatus.CREATED).json({
         statusCode: 200,
-        message: 'success',
-        data: payload,
+        message: 'Ubicacion creada exitosamente',
+        data: newUbication,
         error: '',
       });
     } catch (error) {
       response.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
-        message: error.response.message,
-        error: error.response.error,
-        statusCode: error.response.statusCode,
+        statusCode: 422,
+        message: 'Error al crear la ubicacion',
       });
     }
   }
