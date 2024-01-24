@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ubication } from './entity/ubication.entity';
@@ -52,21 +56,12 @@ export class UbicationsService {
           createUbicationDto.id_type_ubication,
           createUbicationDto.id_location,
           createUbicationDto.id_floor,
-          // createUbicationDto.imageUrl,
+          createUbicationDto.imageUrl,
         ],
       );
       return newUbication;
     } catch (error) {
-      const customError = new Error({
-        message: 'Error al crear la ubicación en la base de datos.',
-        cause: 500,
-      });
-
-      // Aquí puedes agregar propiedades adicionales al error si es necesario
-      customError.cause = error;
-
-      // Lanzar el error personalizado
-      throw customError;
+      throw new UnprocessableEntityException('Error creando la ubicacion');
     }
   }
 
