@@ -29,11 +29,16 @@ import { DoSpacesModule } from './do-spaces/do-spaces.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
+<<<<<<< HEAD
       migrations: [__dirname, 'database/migrations/**/*{.ts,.js}'],
       logging: true,
       synchronize: false,
       // migrationsTableName: 'typeorm_migrations',
       // migrationsRun: false,
+=======
+      synchronize: true,
+      autoLoadEntities: true,
+>>>>>>> 36cb5a3d011053fc469bceea42d3fdac3025a85e
     }),
     ClientModule,
     UserModule,
