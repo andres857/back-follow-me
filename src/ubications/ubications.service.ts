@@ -1,13 +1,8 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ubication } from './entity/ubication.entity';
 import { CreateUbicationDto } from './dto/ubication.dto';
-import { TypeUbicationService } from '../type-ubication/type-ubication.service';
 import { SpacesService } from '../do-spaces/do-spaces.service';
 
 @Injectable()
@@ -15,7 +10,6 @@ export class UbicationsService {
   constructor(
     @InjectRepository(Ubication)
     private ubicationRepository: Repository<Ubication>,
-    private typeUbicationService: TypeUbicationService,
     private spacesService: SpacesService,
   ) {}
 
@@ -72,14 +66,21 @@ export class UbicationsService {
 
     try {
       const newUbication = await this.create(payload);
+      console.log('lp');
+
       console.log(newUbication);
       return newUbication;
     } catch (error) {
+      console.log(error);
+
+      console.log('lpe');
+
       throw new Error(
         `Error al crear la ubicación con datos adicionales: ${error.message}`,
       );
     }
   }
+
   async remove(id: number): Promise<void> {
     await this.ubicationRepository.delete(id);
   }
