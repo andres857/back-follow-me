@@ -27,9 +27,6 @@ export class UsersService {
   }
 
   async createOne(data: CreateUserDto) {
-    console.log('constroler');
-    console.log(data);
-    console.log('constroler');
     const user = this.userRepository.create(data as any);
     return await this.userRepository.save(user);
   }
@@ -49,5 +46,13 @@ export class UsersService {
 
   async deleteOne(id: number) {
     return await this.userRepository.delete(id);
+  }
+
+  async findEmail(mail: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({
+      where: {
+        email: mail,
+      },
+    });
   }
 }
