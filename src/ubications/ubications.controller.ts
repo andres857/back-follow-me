@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Post,
@@ -24,11 +23,6 @@ export class UbicationsController {
     return ubication;
   }
 
-  // @Post()
-  // async create(@Body() createLocationDto: any) {
-  //   return this.ubicationService.create(createLocationDto);
-  // }
-
   @Post('/new/upload')
   @UseInterceptors(FileInterceptor('file'))
   async create(
@@ -37,19 +31,27 @@ export class UbicationsController {
     @Res() response: Response,
   ) {
     const payload = {
-      ...req.body,
+      nameUbication: req.body.nameUbication,
+      typeUbication: JSON.parse(req.body.typeUbication).id,
+      location: JSON.parse(req.body.location).id,
+      floor: JSON.parse(req.body.floor).id,
+      descriptionUbication: req.body.descriptionUbication,
     };
-    try {
-      const newUbication = await this.ubicationService.createUbication(
-        payload,
-        file,
-      );
-      console.log(newUbication);
 
+    const responseData = {
+      name: req.body.nameUbication,
+      typeUbication: JSON.parse(req.body.typeUbication).name,
+      location: JSON.parse(req.body.location).name,
+      floor: JSON.parse(req.body.floor).name,
+      descriptionUbication: req.body.descriptionUbication,
+    };
+
+    try {
+      await this.ubicationService.createUbication(payload, file);
       response.status(HttpStatus.CREATED).json({
         statusCode: 200,
         message: 'Ubicacion creada exitosamente',
-        data: newUbication,
+        data: responseData,
         error: '',
       });
     } catch (error) {
