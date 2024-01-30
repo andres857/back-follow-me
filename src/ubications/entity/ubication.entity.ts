@@ -9,7 +9,7 @@ import {
 import { Location } from 'src/locations/entity/location.entity';
 import { TypeUbication } from 'src/type-ubication/entity/typeUbication.entity';
 import { Floor } from 'src/floor/entity/floor.entity';
-import { Instructions } from 'src/instructions/entity/instructions.entity';
+import { Instruction } from 'src/instructions/entity/instructions.entity';
 import { DetailPathwaysUbications } from 'src/detail_pathways_ubications/entity/detail_pathways_ubications.entity';
 
 @Entity('ubications')
@@ -40,8 +40,8 @@ export class Ubication {
   @JoinColumn({ name: 'id_floor' })
   floor: Floor;
 
-  @OneToMany(() => Instructions, (instructions) => instructions.ubication)
-  instructions: Instructions[];
+  @OneToMany(() => Instruction, (instructions) => instructions.ubication)
+  instructions: Instruction[];
 
   @OneToMany(
     () => DetailPathwaysUbications,

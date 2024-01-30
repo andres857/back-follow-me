@@ -30,12 +30,17 @@ export class UbicationsController {
     @Req() req,
     @Res() response: Response,
   ) {
+    console.log('-----ubication controller-------');
+    console.log(req.body);
+    console.log('-----ubication controller-------');
+
     const payload = {
       nameUbication: req.body.nameUbication,
       typeUbication: JSON.parse(req.body.typeUbication).id,
       location: JSON.parse(req.body.location).id,
       floor: JSON.parse(req.body.floor).id,
       descriptionUbication: req.body.descriptionUbication,
+      direction: req.body.direction,
     };
 
     const responseData = {

@@ -4,12 +4,14 @@ import { Repository } from 'typeorm';
 import { Ubication } from './entity/ubication.entity';
 import { CreateUbicationDto } from './dto/ubication.dto';
 import { SpacesService } from '../do-spaces/do-spaces.service';
+import { InstructionsService } from '../instructions/instructions.service';
 
 @Injectable()
 export class UbicationsService {
   constructor(
     @InjectRepository(Ubication)
     private ubicationRepository: Repository<Ubication>,
+    private instructionsService: InstructionsService,
     private spacesService: SpacesService,
   ) {}
 
@@ -46,7 +48,7 @@ export class UbicationsService {
     return ubications;
   }
 
-  async create(data: CreateUbicationDto) {
+  async create(data: CreateUbicationDto): Promise<any | null> {
     try {
       const ubication = this.ubicationRepository.create(data as any);
       return await this.ubicationRepository.save(ubication);
@@ -71,15 +73,23 @@ export class UbicationsService {
 
     try {
       const newUbication = await this.create(payload);
-      console.log('lp');
+      const idUbication = newUbication.id;
+      // create instructions
+      const payloadNewInstruction = {
+        description: data.descriptionUbication,
+        Direction: data.direction,
+        ubication: idUbication,
+      };
+      const newInstruction = await this.instructionsService.create(
+        payloadNewInstruction as any,
+      );
+      console.log('Instruction created');
+      console.log(newInstruction);
+      console.log('Instruction created');
 
-      console.log(newUbication);
       return newUbication;
     } catch (error) {
       console.log(error);
-
-      console.log('lpe');
-
       throw new Error(
         `Error al crear la ubicación con datos adicionales: ${error.message}`,
       );

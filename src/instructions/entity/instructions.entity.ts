@@ -8,23 +8,14 @@ import {
 import { Ubication } from 'src/ubications/entity/ubication.entity';
 
 @Entity('instructions')
-export class Instructions {
+export class Instruction {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ unique: true })
-  title: string;
-
-  @Column({
-    type: 'varchar',
-    length: 255,
-  })
-  imageUrl: string;
 
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   Direction: string;
 
   @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
