@@ -12,12 +12,6 @@ export class AuthController {
     @Post('login')
     signIn(@Body() signInDto: Record<string, any>) {
         return this.authService.signIn(signInDto.email, signInDto.password);
-        
-        // response.cookie('jwt', token, { httpOnly: true });
-
-        // return {
-        //     message: 'success'
-        // }
     }
 
     @UseGuards(AuthGuard)
