@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { LocationsService } from './locations.service';
 import { CreateLocationDto } from './dto/location.dto';
 
@@ -13,8 +20,9 @@ export class LocationsController {
   }
 
   @Get('/:id')
-  getClientById(@Param('id') id: string) {
-    return `id client ${id}`;
+  async getLocationById(@Param('id', ParseIntPipe) id: number) {
+    const location = await this.locationService.findOne(id);
+    return location;
   }
 
   @Post()
