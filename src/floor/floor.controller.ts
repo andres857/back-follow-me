@@ -16,12 +16,14 @@ export class FloorController {
   @Get()
   async getAll() {
     const floors = await this.floorService.findAll();
+    console.log(floors);
     return floors;
   }
 
   @Get('/:id')
   async getFloorByIdUbication(@Param('id', ParseIntPipe) id: number) {
     const floor = await this.floorService.findOne(id);
+    console.log(floor);
     return floor;
   }
 

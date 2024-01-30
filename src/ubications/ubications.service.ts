@@ -30,6 +30,9 @@ export class UbicationsService {
       SELECT 
       u.id AS id_ubication,
       u.name AS ubication_name,
+      u.id_location AS id_location,
+      u.id_floor AS id_floor,
+      u.imageUrl AS imageUrl,
       t.name AS type_name
       FROM ubications u
       INNER JOIN type_ubication t ON u.id_type_ubication = t.id
@@ -38,6 +41,8 @@ export class UbicationsService {
     const ubications = await this.ubicationRepository.query(query, [
       typeUbication,
     ]);
+    console.log(ubications);
+
     return ubications;
   }
 
