@@ -1,22 +1,18 @@
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
-export class CreateInstructionsDto {
+export class CreateInstructionDto {
   @IsString()
   @IsNotEmpty()
-  readonly name: string;
+  description: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly imageUrl: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly description: string;
+  Direction: string;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly id_ubication: number;
+  ubication: number;
 }
 
-export class UpdateInstructionsDto extends PartialType(CreateInstructionsDto) {}
+export class UpdateInstructionsDto extends PartialType(CreateInstructionDto) {}
