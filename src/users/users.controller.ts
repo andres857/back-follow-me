@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, EditUserDto } from './dtos';
+import { Public } from 'src/auth/constants';
 
 @Controller('users')
 export class UsersController {
@@ -28,7 +29,7 @@ export class UsersController {
   getOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.getOne(id);
   }
-
+  // @Public()
   @Post()
   createOne(@Body() dto: CreateUserDto) {
     return this.userService.createOne(dto);

@@ -15,6 +15,7 @@ import { HistoryModule } from './history/history.module';
 import { PathwaysModule } from './pathways/pathways.module';
 import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/detail_pathways_ubications.module';
 import { DoSpacesModule } from './do-spaces/do-spaces.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { DoSpacesModule } from './do-spaces/do-spaces.module';
     PathwaysModule,
     DetailPathwaysUbicationsModule,
     DoSpacesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
