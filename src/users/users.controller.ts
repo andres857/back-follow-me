@@ -7,22 +7,27 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, EditUserDto } from './dtos';
-import { Public } from 'src/auth/constants';
+import { Response, Request } from 'express';
+
+// import { Public } from 'src/auth/constants';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get()
-  async getMany() {
-    const data = await this.userService.getMany();
-    return {
-      message: 'Petición correcta',
-      data,
-    };
+  async getMany(@Req() request: Request) {
+    const cookie = request.cookies['jwt'];
+    // const data = await this.userService.getMany();
+    // return {
+    //   message: 'Petición correcta',
+    //   data,
+    // };
+    return cookie;
   }
 
   @Get(':id')
