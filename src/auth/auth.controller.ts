@@ -22,6 +22,8 @@ export class AuthController {
     @Body() signInDto: Record<string, any>,
     @Res({ passthrough: true }) response: Response,
   ) {
+    console.log('aqui');
+
     const jwt = await this.authService.signIn(
       signInDto.email,
       signInDto.password,
@@ -29,9 +31,12 @@ export class AuthController {
     console.log(jwt);
 
     // response.cookie('jwt', jwt, { httpOnly: true });
-    return {
+    const cookie = response.cookie('jwt', jwt);
+    console.log(cookie);
+
+    return response.json({
       message: 'success',
-    };
+    });
   }
 
   @UseGuards(AuthGuard)
