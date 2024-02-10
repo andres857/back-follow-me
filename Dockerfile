@@ -3,11 +3,12 @@ FROM node:lts-iron AS dev
 
 WORKDIR /usr/src/app
 
-RUN npm install -g @nestjs/cli
 
 COPY package*.json ./
 
 RUN npm install
+RUN npm install -g @nestjs/cli
+
 
 COPY . .
 
