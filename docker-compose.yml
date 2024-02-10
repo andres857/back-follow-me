@@ -1,0 +1,33 @@
+version: "3.9"
+
+services: 
+  back-dev:
+    build:
+      context: .
+      target: dev
+    # command: npm run start:dev
+    restart: always
+    volumes:
+      - ./:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    ports:
+      - 3000:3000
+
+  # back-production:
+  #   build:
+  #     context: .
+  #     target: prod
+  #   restart: always
+  #   volumes:
+  #     - ./:/usr/src/app
+  #     - ./node_modules:/usr/src/app/node_modules
+  #   ports:
+  #     - 3000:3000
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "1m"
+
+networks:
+  follow-network:
+    driver: bridge

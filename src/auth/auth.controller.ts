@@ -1,14 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Request,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
 import { Public } from './constants';
 import { Response } from 'express';
 
@@ -28,20 +19,11 @@ export class AuthController {
       signInDto.email,
       signInDto.password,
     );
-    console.log(jwt);
 
-    // response.cookie('jwt', jwt, { httpOnly: true });
-    const cookie = response.cookie('jwt', jwt);
-    console.log(cookie);
+    response.cookie('jwt', jwt, { httpOnly: true });
 
-    return response.json({
+    return {
       message: 'success',
-    });
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+    };
   }
 }
