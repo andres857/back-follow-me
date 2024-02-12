@@ -12,7 +12,9 @@ import {
 import { UbicationsService } from './ubications.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { Public } from 'src/auth/constants';
 
+@Public()
 @Controller('ubications')
 export class UbicationsController {
   constructor(private ubicationService: UbicationsService) {}

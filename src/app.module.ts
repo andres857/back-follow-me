@@ -16,11 +16,17 @@ import { PathwaysModule } from './pathways/pathways.module';
 import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/detail_pathways_ubications.module';
 import { DoSpacesModule } from './do-spaces/do-spaces.module';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET_JWT, // Utiliza la clave secreta configurada
+      signOptions: { expiresIn: '3600s' },
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',

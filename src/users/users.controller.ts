@@ -12,9 +12,9 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto, EditUserDto } from './dtos';
 import { Response, Request } from 'express';
+import { Public } from 'src/auth/constants';
 
-// import { Public } from 'src/auth/constants';
-
+@Public()
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
@@ -22,12 +22,12 @@ export class UsersController {
   @Get()
   async getMany(@Req() request: Request) {
     const cookie = request.cookies['jwt'];
-    // const data = await this.userService.getMany();
-    // return {
-    //   message: 'Petición correcta',
-    //   data,
-    // };
-    return cookie;
+    const data = await this.userService.getMany();
+    return {
+      message: 'Petición correcta',
+      cookie: cookie,
+      data,
+    };
   }
 
   @Get(':id')

@@ -9,7 +9,9 @@ import {
 import { InstructionsService } from './instructions.service';
 import { CreateInstructionDto } from './dto/intructions.dto';
 // import { Response } from 'express';
+import { Public } from 'src/auth/constants';
 
+@Public()
 @Controller('instructions')
 export class InstructionsController {
   constructor(private instructionService: InstructionsService) {}

@@ -8,7 +8,9 @@ import {
 } from '@nestjs/common';
 import { TypeUbicationService } from './type-ubication.service';
 import { CreateTypeUbicationDto } from './dto/typeUbication.dto';
+import { Public } from 'src/auth/constants';
 
+@Public()
 @Controller('type-ubications')
 export class TypeUbicationController {
   constructor(private typeUbicationService: TypeUbicationService) {}

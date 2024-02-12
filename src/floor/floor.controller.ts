@@ -8,7 +8,9 @@ import {
 } from '@nestjs/common';
 import { FloorService } from './floor.service';
 import { CreateFloorDto } from './dto/floor.dto';
+import { Public } from 'src/auth/constants';
 
+@Public()
 @Controller('floors')
 export class FloorController {
   constructor(private floorService: FloorService) {}
