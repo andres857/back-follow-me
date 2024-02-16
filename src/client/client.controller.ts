@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Body, Post } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/client.dto';
+import { Public } from 'src/auth/constants';
 
+@Public()
 @Controller('clients')
 export class ClientController {
   constructor(private clientService: ClientService) {}

@@ -11,6 +11,11 @@ export class AuthService {
   ) {}
 
   async signIn(email: string, pass: string): Promise<{ access_token: string }> {
+<<<<<<< HEAD
+=======
+    
+    console.log('sigin');
+>>>>>>> fd8cfb38f26c27becba7de463b40c4c930fccf34
     if (!email) {
       throw new UnauthorizedException('Email is required');
     }
