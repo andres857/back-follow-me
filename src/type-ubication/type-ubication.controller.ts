@@ -10,10 +10,7 @@ import { TypeUbicationService } from './type-ubication.service';
 import { CreateTypeUbicationDto } from './dto/typeUbication.dto';
 import { Public } from 'src/auth/constants';
 
-<<<<<<< HEAD
-=======
 @Public()
->>>>>>> fd8cfb38f26c27becba7de463b40c4c930fccf34
 @Controller('type-ubications')
 export class TypeUbicationController {
   constructor(private typeUbicationService: TypeUbicationService) {}

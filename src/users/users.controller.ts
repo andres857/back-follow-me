@@ -12,12 +12,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto, EditUserDto } from './dtos';
 import { Response, Request } from 'express';
-<<<<<<< HEAD
-
-// import { Public } from 'src/auth/constants';
-=======
 import { Public } from 'src/auth/constants';
->>>>>>> fd8cfb38f26c27becba7de463b40c4c930fccf34
 
 @Public()
 @Controller('users')

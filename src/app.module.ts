@@ -16,10 +16,7 @@ import { PathwaysModule } from './pathways/pathways.module';
 import { DetailPathwaysUbicationsModule } from './detail_pathways_ubications/detail_pathways_ubications.module';
 import { DoSpacesModule } from './do-spaces/do-spaces.module';
 import { AuthModule } from './auth/auth.module';
-<<<<<<< HEAD
-=======
 import { JwtModule } from '@nestjs/jwt';
->>>>>>> fd8cfb38f26c27becba7de463b40c4c930fccf34
 
 @Module({
   imports: [

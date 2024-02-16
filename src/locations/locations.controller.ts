@@ -8,15 +8,9 @@ import {
 } from '@nestjs/common';
 import { LocationsService } from './locations.service';
 import { CreateLocationDto } from './dto/location.dto';
-<<<<<<< HEAD
-import { Public } from '../auth/constants';
-
-// @Public()
-=======
 import { Public } from 'src/auth/constants';
 
 @Public()
->>>>>>> fd8cfb38f26c27becba7de463b40c4c930fccf34
 @Controller('locations')
 export class LocationsController {
   constructor(private locationService: LocationsService) {}
