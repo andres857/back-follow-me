@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Public } from './constants';
 import { Response } from 'express';
+import { Public } from './constants';
 
 @Public()
 @Controller('auth')
