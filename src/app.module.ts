@@ -23,11 +23,14 @@ import { JwtModule } from '@nestjs/jwt';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+<<<<<<< HEAD
+=======
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_JWT, // Utiliza la clave secreta configurada
       signOptions: { expiresIn: '3600s' },
     }),
+>>>>>>> fd8cfb38f26c27becba7de463b40c4c930fccf34
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
