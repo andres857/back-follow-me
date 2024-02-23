@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Post,
@@ -30,7 +32,14 @@ export class FloorController {
   }
 
   @Post()
+  @HttpCode(201)
   async create(@Body() createFloorDto: CreateFloorDto) {
     return this.floorService.create(createFloorDto);
+  }
+
+  @Delete('/:id')
+  @HttpCode(204)
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    return this.floorService.remove(id);
   }
 }

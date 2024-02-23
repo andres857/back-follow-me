@@ -4,7 +4,7 @@ import { PartialType } from '@nestjs/mapped-types';
 export class CreateFloorDto {
   @IsString()
   @IsNotEmpty()
-  readonly name: string;
+  name: string;
 }
 
 export class UpdateFloorDto extends PartialType(CreateFloorDto) {}

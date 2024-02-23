@@ -8,6 +8,7 @@ import {
   Req,
   HttpStatus,
   Res,
+  HttpCode,
 } from '@nestjs/common';
 import { UbicationsService } from './ubications.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -26,6 +27,7 @@ export class UbicationsController {
   }
 
   @Post('/new/upload')
+  @HttpCode(201)
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @UploadedFile() file: any,
