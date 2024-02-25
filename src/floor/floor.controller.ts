@@ -4,6 +4,8 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
@@ -11,6 +13,7 @@ import {
 import { FloorService } from './floor.service';
 import { CreateFloorDto } from './dto/floor.dto';
 import { Public } from 'src/auth/constants';
+import { response } from 'express';
 
 @Public()
 @Controller('floors')
@@ -32,9 +35,13 @@ export class FloorController {
   }
 
   @Post()
-  @HttpCode(201)
-  async create(@Body() createFloorDto: CreateFloorDto) {
-    return this.floorService.create(createFloorDto);
+  async addFloor(@Body() createFloorDto: CreateFloorDto) {
+    try {
+      const floor = await this.floorService.create(createFloorDto);
+      return floor;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete('/:id')

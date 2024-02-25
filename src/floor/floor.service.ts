@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Any, Repository } from 'typeorm';
+import { Any, QueryFailedError, Repository } from 'typeorm';
 import { Floor } from './entity/floor.entity';
 import { CreateFloorDto, UpdateFloorDto } from './dto/floor.dto';
 
