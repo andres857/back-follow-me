@@ -16,26 +16,25 @@ export class FloorService {
     private floorRepository: Repository<Floor>,
   ) {}
 
-  findAll(): Promise<Floor[]> {
-    return this.floorRepository.find();
+  async findAll(): Promise<Floor[]> {
+    return await this.floorRepository.find();
   }
 
-  findOne(id: number): Promise<Floor | null> {
-    return this.floorRepository.findOneBy({ id });
+  async findOne(id: number): Promise<Floor | null> {
+    return await this.floorRepository.findOneBy({ id });
   }
 
   async create(createFloorDto: CreateFloorDto): Promise<Floor> {
-    const floor = this.floorRepository.create(createFloorDto);
-    return this.floorRepository.save(floor);
+    const floor = await this.floorRepository.create(createFloorDto);
+    return await this.floorRepository.save(floor);
   }
 
-  async update(
-    id: number,
-    updateFloorDto: UpdateFloorDto,
-  ): Promise<Floor | null> {
-    const floor = await this.findOne(id);
-    if (!floor) {
-      return null; // El piso no fue encontrado
+  async update(updateFloorDto: UpdateFloorDto): Promise<Floor> {
+    const floor = await this.findOne(updateFloorDto.id);
+    if (!floor || updateFloorDto.name === undefined) {
+      throw new NotFoundException(
+        `Floor with id ${updateFloorDto.id} not found`,
+      );
     }
     // Actualizar las propiedades del piso con los datos proporcionados
     Object.assign(floor, updateFloorDto);
