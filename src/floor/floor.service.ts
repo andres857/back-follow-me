@@ -1,8 +1,13 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Any, QueryFailedError, Repository } from 'typeorm';
 import { Floor } from './entity/floor.entity';
 import { CreateFloorDto, UpdateFloorDto } from './dto/floor.dto';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class FloorService {
@@ -38,8 +43,10 @@ export class FloorService {
   }
 
   async remove(id: number) {
-    const deleteFloor = await this.floorRepository.delete(id);
-    console.log(deleteFloor);
-    return deleteFloor;
+    const found = await this.findOne(id);
+    if (found === null) {
+      throw new NotFoundException(`Floor with id ${id} not found`);
+    }
+    return await this.floorRepository.delete(id);
   }
 }

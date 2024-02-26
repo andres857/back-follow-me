@@ -14,6 +14,7 @@ import { FloorService } from './floor.service';
 import { CreateFloorDto } from './dto/floor.dto';
 import { Public } from 'src/auth/constants';
 import { response } from 'express';
+import { error } from 'console';
 
 @Public()
 @Controller('floors')
@@ -36,17 +37,15 @@ export class FloorController {
 
   @Post()
   async addFloor(@Body() createFloorDto: CreateFloorDto) {
-    try {
-      const floor = await this.floorService.create(createFloorDto);
-      return floor;
-    } catch (error) {
+    return await this.floorService.create(createFloorDto).catch((error) => {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    });
   }
 
   @Delete('/:id')
-  @HttpCode(204)
   async delete(@Param('id', ParseIntPipe) id: number) {
-    return this.floorService.remove(id);
+    return this.floorService.remove(id).catch((error) => {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    });
   }
 }
