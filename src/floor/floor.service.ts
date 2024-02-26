@@ -21,7 +21,11 @@ export class FloorService {
   }
 
   async findOne(id: number): Promise<Floor | null> {
-    return await this.floorRepository.findOneBy({ id });
+    const floor = await this.floorRepository.findOneBy({ id });
+    if (!floor) {
+      throw new NotFoundException(`Floor with id ${id} not found`);
+    }
+    return floor;
   }
 
   async create(createFloorDto: CreateFloorDto): Promise<Floor> {
@@ -29,23 +33,14 @@ export class FloorService {
     return await this.floorRepository.save(floor);
   }
 
-  async update(updateFloorDto: UpdateFloorDto): Promise<Floor> {
-    const floor = await this.findOne(updateFloorDto.id);
-    if (!floor || updateFloorDto.name === undefined) {
-      throw new NotFoundException(
-        `Floor with id ${updateFloorDto.id} not found`,
-      );
-    }
-    // Actualizar las propiedades del piso con los datos proporcionados
+  async update(id, updateFloorDto: UpdateFloorDto): Promise<Floor> {
+    const floor = await this.findOne(id);
     Object.assign(floor, updateFloorDto);
     return this.floorRepository.save(floor); // Guardar los cambios y devolver el piso actualizado
   }
 
   async remove(id: number) {
-    const found = await this.findOne(id);
-    if (found === null) {
-      throw new NotFoundException(`Floor with id ${id} not found`);
-    }
+    await this.findOne(id);
     return await this.floorRepository.delete(id);
   }
 }

@@ -7,9 +7,8 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
-  ValidationPipe,
+  Put,
 } from '@nestjs/common';
 import { FloorService } from './floor.service';
 import { CreateFloorDto, UpdateFloorDto } from './dto/floor.dto';
@@ -37,17 +36,12 @@ export class FloorController {
     });
   }
 
-  @Patch('/:id')
+  @Put('/:id')
   async updateFields(
-    @Body('name') name: string, // Utilizar ValidationPipe con skipMissingProperties
+    @Body() data: UpdateFloorDto, // Utilizar ValidationPipe con skipMissingProperties
     @Param('id', ParseIntPipe) id: number,
   ) {
-    const updatedFloorDto = new UpdateFloorDto();
-    updatedFloorDto.id = id;
-
-    // Solo asignar la propiedad si está presente en el cuerpo de la solicitud
-    updatedFloorDto.name = name;
-    return this.floorService.update(updatedFloorDto).catch((error) => {
+    return this.floorService.update(id, data).catch((error) => {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     });
   }

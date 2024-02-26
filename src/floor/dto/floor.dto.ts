@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateFloorDto {
@@ -7,8 +7,4 @@ export class CreateFloorDto {
   name: string;
 }
 
-export class UpdateFloorDto extends PartialType(CreateFloorDto) {
-  @IsNumber()
-  @IsNotEmpty()
-  id: number;
-}
+export class UpdateFloorDto extends PartialType(CreateFloorDto) {}

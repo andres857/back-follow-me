@@ -18,7 +18,7 @@ export class ResponseInterceptor implements NestInterceptor {
       return next.handle().pipe(
         map(() => {
           return {
-            statusCode: 204,
+            statusCode: 200,
             message: 'Resource deleted',
             error: null,
           };
