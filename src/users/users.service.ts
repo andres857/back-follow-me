@@ -16,14 +16,8 @@ export class UsersService {
   }
 
   async getOne(id: number) {
-    const user = await this.userRepository.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!user) throw new NotFoundException('Usuario no encontrado');
-
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) throw new NotFoundException(`Floor with id ${id} not found`);
     return user;
   }
 
@@ -36,14 +30,7 @@ export class UsersService {
   }
 
   async editOne(id: number, dto: EditUserDto) {
-    const user = await this.userRepository.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!user) throw new NotFoundException('Usuario no encontrado');
-
+    const user = await this.getOne(id);
     const editedUser = Object.assign(user, dto);
     return await this.userRepository.save(editedUser);
   }

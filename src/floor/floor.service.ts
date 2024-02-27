@@ -36,7 +36,7 @@ export class FloorService {
   async update(id, updateFloorDto: UpdateFloorDto): Promise<Floor> {
     const floor = await this.findOne(id);
     Object.assign(floor, updateFloorDto);
-    return this.floorRepository.save(floor); // Guardar los cambios y devolver el piso actualizado
+    return await this.floorRepository.save(floor); // Guardar los cambios y devolver el piso actualizado
   }
 
   async remove(id: number) {

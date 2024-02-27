@@ -20,14 +20,8 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get()
-  async getMany(@Req() request: Request) {
-    const cookie = request.cookies['jwt'];
-    const data = await this.userService.getMany();
-    return {
-      message: 'Petición correcta',
-      cookie: cookie,
-      data,
-    };
+  async getMany() {
+    return await this.userService.getMany();
   }
 
   @Get(':id')
