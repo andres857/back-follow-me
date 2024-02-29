@@ -2,37 +2,36 @@
 FROM node:lts-iron AS dev
 
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
-RUN npm install
-RUN npm install -g @nestjs/cli
+RUN yarn global add @nestjs/cli
+RUN yarn install
 
 COPY . .
-
 CMD ["npm", "run", "start:dev"]
 
 # Etapa de compilación
-FROM node:lts-iron AS build
+# FROM node:lts-iron AS build
 
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install  
+# RUN npm install  
 
-COPY . .
+# COPY . .
 
-RUN npm run build
+# RUN npm run build
 
-# Etapa final de producción
-FROM node:lts-iron AS prod
+# # Etapa final de producción
+# FROM node:lts-iron AS prod
 
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install --only=production
+# RUN npm install --only=production
 
-COPY --from=build /app/dist ./dist
+# COPY --from=build /app/dist ./dist
 
-CMD ["node", "dist/main"]
+# CMD ["node", "dist/main"]
