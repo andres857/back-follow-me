@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Any, QueryFailedError, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Floor } from './entity/floor.entity';
 import { CreateFloorDto, UpdateFloorDto } from './dto/floor.dto';
 import { throwError } from 'rxjs';

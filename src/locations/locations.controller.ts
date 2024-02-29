@@ -17,14 +17,12 @@ export class LocationsController {
 
   @Get()
   async getAll() {
-    const locations = await this.locationService.findAll();
-    return locations;
+    return await this.locationService.findAll();
   }
 
   @Get('/:id')
   async getLocationById(@Param('id', ParseIntPipe) id: number) {
-    const location = await this.locationService.findOne(id);
-    return location;
+    return await this.locationService.findOne(id);
   }
 
   @Post()
