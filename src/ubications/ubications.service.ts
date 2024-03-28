@@ -28,24 +28,15 @@ export class UbicationsService {
 
   // falta por definir la interfaz de datos que retorna la funcion
   async getUbicationsByType(typeUbication: string): Promise<any[]> {
-    const query = `
-      SELECT 
-      u.id AS id_ubication,
-      u.name AS ubication_name,
-      u.id_location AS id_location,
-      u.id_floor AS id_floor,
-      u.imageUrl AS imageUrl,
-      t.name AS type_name
-      FROM ubications u
-      INNER JOIN type_ubication t ON u.id_type_ubication = t.id
-      WHERE t.name = ?
-    `;
-    const ubications = await this.ubicationRepository.query(query, [
-      typeUbication,
-    ]);
-    console.log(ubications);
-
-    return ubications;
+    const ubicationsByType = await this.ubicationRepository.find({
+      relations: ['type', 'location', 'floor'],
+      where: {
+        type: {
+          name: typeUbication,
+        },
+      },
+    });
+    return ubicationsByType;
   }
 
   async create(data: CreateUbicationDto): Promise<any | null> {
