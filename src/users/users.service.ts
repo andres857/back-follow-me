@@ -17,7 +17,7 @@ export class UsersService {
 
   async getOne(id: number) {
     const user = await this.userRepository.findOneBy({ id });
-    if (!user) throw new NotFoundException(`Floor with id ${id} not found`);
+    if (!user) throw new NotFoundException(`User with id ${id} not found`);
     return user;
   }
 
@@ -36,6 +36,7 @@ export class UsersService {
   }
 
   async deleteOne(id: number) {
+    await this.getOne(id);
     return await this.userRepository.delete(id);
   }
 

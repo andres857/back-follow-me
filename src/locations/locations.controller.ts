@@ -1,18 +1,23 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { LocationsService } from './locations.service';
-import { CreateLocationDto } from './dto/location.dto';
+import { CreateLocationDto, UpdateLocationDto } from './dto/location.dto';
 import { Public } from 'src/auth/constants';
 
 @Public()
 @Controller('locations')
 export class LocationsController {
+  floorService: any;
   constructor(private locationService: LocationsService) {}
 
   @Get()
@@ -28,5 +33,22 @@ export class LocationsController {
   @Post()
   async create(@Body() createLocationDto: CreateLocationDto) {
     return this.locationService.create(createLocationDto);
+  }
+
+  @Put('/:id')
+  async updateFields(
+    @Body() data: UpdateLocationDto, // Utilizar ValidationPipe con skipMissingProperties
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.locationService.update(id, data).catch((error) => {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    });
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    return this.locationService.remove(id).catch((error) => {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    });
   }
 }
