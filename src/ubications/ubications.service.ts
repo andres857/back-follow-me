@@ -50,9 +50,6 @@ export class UbicationsService {
 
   async createUbication(data: any, file: any) {
     const imageUrlDo = await this.spacesService.uploadFile(file);
-    console.log('-----dataService-----');
-    console.log(data);
-    console.log('-----dataService-----');
 
     const payload = {
       name: data.nameUbication,
@@ -66,11 +63,16 @@ export class UbicationsService {
       const newUbication = await this.create(payload);
       const idUbication = newUbication.id;
       // create instructions
+      const url = `${process.env.URLHOST}/search?idUbication=${idUbication}`;
+      const urlQr = await this.instructionsService.generateQrCode(url);
+
       const payloadNewInstruction = {
-        description: data.descriptionUbication,
+        Description: data.descriptionUbication,
         Direction: data.direction,
         ubication: idUbication,
+        QR: urlQr,
       };
+
       const newInstruction = await this.instructionsService.create(
         payloadNewInstruction as any,
       );

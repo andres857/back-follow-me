@@ -35,4 +35,16 @@ export class SpacesService {
     const rtado = await this.s3.upload(params).promise();
     return rtado;
   }
+
+  async uploadQR(buffer) {
+    const params = {
+      Bucket: process.env.SPACES_BUCKET,
+      Key: `qrcodes/${Date.now()}.png`,
+      Body: buffer,
+      ContentType: 'image/png',
+      ACL: 'public-read', // o ajusta según tus necesidades de privacidad
+    };
+    const uploadResult = await this.s3.upload(params).promise();
+    return uploadResult;
+  }
 }

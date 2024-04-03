@@ -5,10 +5,10 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 import { InstructionsService } from './instructions.service';
 import { CreateInstructionDto } from './dto/intructions.dto';
-// import { Response } from 'express';
 import { Public } from 'src/auth/constants';
 
 @Public()
@@ -33,6 +33,20 @@ export class InstructionsController {
     console.log('----Instruction controller----');
     console.log(instruction);
     console.log('----Instruction controller----');
-    return this.instructionService.create(instruction);
+    return await this.instructionService.create(instruction);
+  }
+
+  // @Get('qr/:idUbication')
+  // async getQrCode(@Param('idUbication', ParseIntPipe) idUbication: number) {
+  //   console.log(idUbication);
+  //   const qrUrl = await this.instructionService.QrCode(idUbication);
+  //   return qrUrl;
+  // }
+
+  @Post('qr')
+  async generateQrCode(@Body('url') url: any) {
+    console.log(url);
+    const qrCodeDataURL = await this.instructionService.generateQrCode(url);
+    return `<img src="${qrCodeDataURL}" alt="QR Code" />`;
   }
 }

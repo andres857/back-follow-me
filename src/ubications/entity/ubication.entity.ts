@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { Location } from 'src/locations/entity/location.entity';
 import { TypeUbication } from 'src/type-ubication/entity/typeUbication.entity';
@@ -40,8 +41,12 @@ export class Ubication {
   @JoinColumn({ name: 'id_floor' })
   floor: Floor;
 
-  @OneToMany(() => Instruction, (instructions) => instructions.ubication)
-  instructions: Instruction[];
+  // @OneToMany(() => Instruction, (instructions) => instructions.ubication)
+  // instructions: Instruction[];
+
+  @OneToOne(() => Instruction, (instruction) => instruction.ubication)
+  @JoinColumn({ name: 'id_instructions' })
+  instruction: Instruction[];
 
   @OneToMany(
     () => DetailPathwaysUbications,

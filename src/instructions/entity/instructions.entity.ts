@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { Ubication } from 'src/ubications/entity/ubication.entity';
 
@@ -12,13 +13,21 @@ export class Instruction {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  description: string;
+  @Column({ nullable: true })
+  Description: string;
 
   @Column({ nullable: true })
   Direction: string;
 
-  @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
-  @JoinColumn({ name: 'id_ubication' })
-  ubication: Ubication;
+  @Column({ nullable: true })
+  QR: string;
+
+  // @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
+  // @JoinColumn({ name: 'id_ubication' })
+  // ubication: Ubication;
+
+  @OneToOne(() => Ubication, (ubication) => ubication.instruction, {
+    cascade: true,
+  })
+  ubication: Ubication[];
 }
