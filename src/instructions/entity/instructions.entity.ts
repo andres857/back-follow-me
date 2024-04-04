@@ -19,15 +19,7 @@ export class Instruction {
   @Column({ nullable: true })
   Direction: string;
 
-  @Column({ nullable: true })
-  QR: string;
-
-  // @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
-  // @JoinColumn({ name: 'id_ubication' })
-  // ubication: Ubication;
-
-  @OneToOne(() => Ubication, (ubication) => ubication.instruction, {
-    cascade: true,
-  })
-  ubication: Ubication[];
+  @ManyToOne(() => Ubication, (ubication) => ubication.instructions)
+  @JoinColumn({ name: 'id_ubication' })
+  ubication: Ubication;
 }

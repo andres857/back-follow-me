@@ -27,6 +27,9 @@ export class Ubication {
   })
   imageUrl: string;
 
+  @Column({ nullable: true })
+  QR: string;
+
   @ManyToOne(() => Location, (location) => location.ubications, {
     cascade: true,
   })
@@ -41,12 +44,8 @@ export class Ubication {
   @JoinColumn({ name: 'id_floor' })
   floor: Floor;
 
-  // @OneToMany(() => Instruction, (instructions) => instructions.ubication)
-  // instructions: Instruction[];
-
-  @OneToOne(() => Instruction, (instruction) => instruction.ubication)
-  @JoinColumn({ name: 'id_instructions' })
-  instruction: Instruction[];
+  @OneToMany(() => Instruction, (instructions) => instructions.ubication)
+  instructions: Instruction[];
 
   @OneToMany(
     () => DetailPathwaysUbications,
